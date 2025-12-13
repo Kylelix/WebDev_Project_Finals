@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome - Travel Booking</title>
+
+</head>
+<body>
+
+<!-- LOGIN POPUP OVERLAY -->
+<div id="loginOverlay" class="login-overlay">
+    <div class="login-popup">
+        <h2>Login Required</h2>
+        <p>Please login first to make a booking.</p>
+        <a href="logreg.php" class="popup-btn">Go to Login</a>
+    </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <a href="logreg.php" class="nav-btn">Sign In / Register</a>
+</div>
+
+<!-- SEARCH BAR -->
+<div class="search-bar">
+    <input type="text" id="searchBox" class="search-input" placeholder="Search a place...">
+    <button class="search-btn" onclick="applySearch()">Search</button>
+</div>
+
+
+<!-- 3 COLUMNS -->
+<div class="columns">
+
+    <!-- HOTELS -->
+    <div class="col">
+        <div class="col-head">
+            <div class="col-title">HOTELS</div>
+            <div class="col-arrows">
+                <button class="arrow" onclick="prevHotel()">&lt;</button>
+                <button class="arrow" onclick="nextHotel()">&gt;</button>
+            </div>
+        </div>
+
+        <div class="col-body">
+            <img id="hotel-img" class="item-img">
+            <div id="hotel-name" class="item-name"></div>
+            <div id="hotel-loc" class="location-text"></div>
+
+            <div class="card-actions">
+                <a id="hotel-book" class="book-btn-small" href="#" onclick="showLoginPopup(); return false;">Book</a>
+                <button id="hotel-map-btn" class="map-btn-small" onclick="loadSelectedMap('hotel')">Load Map</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESTAURANTS -->
+    <div class="col">
+        <div class="col-head">
+            <div class="col-title">RESTAURANTS</div>
+            <div class="col-arrows">
+                <button class="arrow" onclick="prevRestaurant()">&lt;</button>
+                <button class="arrow" onclick="nextRestaurant()">&gt;</button>
+            </div>
+        </div>
+
+        <div class="col-body">
+            <img id="restaurant-img" class="item-img">
+            <div id="restaurant-name" class="item-name"></div>
+            <div id="restaurant-loc" class="location-text"></div>
+
+            <div class="card-actions">
+                <a id="restaurant-book" class="book-btn-small" href="#" onclick="showLoginPopup(); return false;">Book</a>
+                <button id="restaurant-map-btn" class="map-btn-small" onclick="loadSelectedMap('restaurant')">Load Map</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTIVITIES -->
+    <div class="col">
+        <div class="col-head">
+            <div class="col-title">ACTIVITIES</div>
+            <div class="col-arrows">
+                <button class="arrow" onclick="prevActivity()">&lt;</button>
+                <button class="arrow" onclick="nextActivity()">&gt;</button>
+            </div>
+        </div>
+
+        <div class="col-body">
+            <img id="activity-img" class="item-img">
+            <div id="activity-name" class="item-name"></div>
+            <div id="activity-loc" class="location-text"></div>
+
+            <div class="card-actions">
+                <a id="activity-book" class="book-btn-small" href="#" onclick="showLoginPopup(); return false;">Book</a>
+                <button id="activity-map-btn" class="map-btn-small" onclick="loadSelectedMap('activity')">Load Map</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
