@@ -22,4 +22,27 @@ $found = 0;
 $dbPass = "";
 $userID = 0;
 
+while ($row = sqlsrv_fetch_array($res)) {
+    $found = 1;
+    $dbPass = $row["password"];
+    $userID = $row["id"];
+}
+
+if ($found == 1) {
+    if ($password == $dbPass) {
+
+        $_SESSION["userID"] = $userID;
+        $_SESSION["username"] = $username;
+
+        header("Location: homepage.php");
+        exit();
+    }
+}
+
+echo "
+<script>
+alert('Invalid login.');
+window.location='logreg.php';
+</script>
+";
 ?>
