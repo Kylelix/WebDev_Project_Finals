@@ -97,6 +97,88 @@
     </div>
 </div>
 
+<!-- MAPBOX JS LOGIC -->
+ <script>
+mapboxgl.accessToken = "pk.eyJ1Ijoia3lsZWxpeCIsImEiOiJjbWl3ejMzdmIwMWU5M2VxczJyOHBxbXZ2In0.2GzAyBPJlO_X24QBTy-MYQ";
+
+var map = new mapboxgl.Map({
+    container: "map", 
+    style: "mapbox://styles/mapbox/streets-v11", 
+    center: [77.2090, 28.6139], 
+    zoom: 10
+});
+
+var activeMarker = null;
+
+function loadSelectedMap(type) {
+
+    var list = null;
+    var index = 0;
+
+    if (type == "hotel") {
+        list = hotels;
+        index = hIndex;
+    }
+
+    if (type == "restaurant") {
+        list = restaurants;
+        index = rIndex;
+    }
+
+    if (type == "activity") {
+        list = activities;
+        index = aIndex;
+    }
+
+    var place = list[index];
+
+    if (place == null) {
+        alert("No place loaded.");
+        return;
+    }
+
+    var address = place["address"];
+
+    if (address == null || address == "") {
+        alert("No address available.");
+        return;
+    }
+    var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + 
+    encodeURIComponent(address) + 
+    ".json?access_token=" + mapboxgl.accessToken;
+
+    fetch(url)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+
+        if (data.features.length > 0) {
+
+            var lon = data.features[0].center[0];
+            var lat = data.features[0].center[1];
+
+            moveMap(lon, lat);
+
+        } else {
+            alert("MapBox could not find this address.");
+        }
+    });
+}
+
+function moveMap(lon, lat) {
+
+    if (activeMarker != null) {
+        activeMarker.remove();
+    }
+
+    activeMarker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
+
+    map.flyTo({
+        center: [lon, lat],
+        zoom: 14
+    });
+}
+
+ </script>
 
 </body>
 </html>
