@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    background: #e7edf3;
+    font-family: 'Poppins', sans-serif;
+}
+
+.outer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* MAIN CARD */
+.logreg-card {
+    width: 820px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    display: flex;
+    padding: 30px 40px;
+}
+
+.left-panel, .right-panel {
+    width: 50%;
+}
+
+/* TITLES */
+h2 {
+    margin-top: 0;
+    color: #1fa0ff;
+    font-size: 24px;
+}
+
+/* LABELS */
+label {
+    display: block;
+    margin-top: 14px;
+    font-size: 15px;
+}
+
+/* INPUTS */
+.logreg-box {
+    width: 100%;
+    padding: 11px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid #c9d4e0;
+    font-size: 15px;
+}
+
+/* BUTTONS */
+.logreg-btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #55b4ff;
+    border: none;
+    color: white;
+    font-size: 17px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logreg-btn:hover {
+    background: #3da6ff;
+}
+
+/* DIVIDER */
+.divider {
+    width: 2px;
+    background: #d8e2ee;
+    margin: 0 25px;
+    border-radius: 1px;
+}
+
+/* SMALL GOOGLE BUTTON BELOW CARD */
+.google-small-holder {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.google-wrapper {
+    margin-top: 25px;
+    background: white;
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
