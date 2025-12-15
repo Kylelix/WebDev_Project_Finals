@@ -26,5 +26,4 @@ $data = json_decode(base64_decode($payload), true);
 $email = $data["email"];
 $name  = $data["name"];
 
-
 ?>
