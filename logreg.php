@@ -54,5 +54,43 @@ session_start();
 
     </div>
 
+    <!-- NEW STYLED GOOGLE WRAPPER -->
+    <div class="google-wrapper">
+        <div id="g_id_onload"
+             data-client_id="397070442652-a36b7hmfeah7sag869fsrgqdcpkvcrs6.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleGoogle"
+             data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-size="medium"
+             data-theme="outline"
+             data-text="signin_with"
+             data-shape="rectangular">
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+function handleGoogle(response) {
+    let f = document.createElement("form");
+    f.method = "POST";
+    f.action = "google_unified.php";
+
+    let i = document.createElement("input");
+    i.type = "hidden";
+    i.name = "token";
+    i.value = response.credential;
+
+    f.appendChild(i);
+    document.body.appendChild(f);
+    f.submit();
+}
+</script>
 </body>
 </html>

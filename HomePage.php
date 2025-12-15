@@ -183,8 +183,8 @@ function loadSelectedMap(type) {
 
     /* GEOCODE USING ADDRESS ONLY */
     var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-              encodeURIComponent(address) +
-              ".json?access_token=" + mapboxgl.accessToken;
+    encodeURIComponent(address) +
+    ".json?access_token=" + mapboxgl.accessToken;
 
     fetch(url)
     .then(function(r){ return r.json(); })
