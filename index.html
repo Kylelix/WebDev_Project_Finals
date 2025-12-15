@@ -22,10 +22,18 @@
     </div>
 </div>
 
-<!-- TOP BAR -->
+<!-- TOP BAR  -->
 <div class="topbar">
+    <img src="images/logo.png" class="logo">
     <a href="logreg.php" class="nav-btn">Sign In / Register</a>
 </div>
+
+
+<!-- MAPBOX DISPLAY -->
+<div id="mapbox-container">
+    <div id="map"></div>
+</div>
+
 
 <!-- SEARCH BAR -->
 <div class="search-bar">
@@ -102,6 +110,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <!-- LOAD DATA FROM PHP -->
@@ -110,13 +119,13 @@
 <script src="js/homepage.js"></script>
 
 <!-- MAPBOX JS LOGIC -->
- <script>
+<script>
 mapboxgl.accessToken = "pk.eyJ1Ijoia3lsZWxpeCIsImEiOiJjbWl3ejMzdmIwMWU5M2VxczJyOHBxbXZ2In0.2GzAyBPJlO_X24QBTy-MYQ";
 
 var map = new mapboxgl.Map({
-    container: "map", 
-    style: "mapbox://styles/mapbox/streets-v11", 
-    center: [77.2090, 28.6139], 
+    container: "map",
+    style: "mapbox://styles/mapbox/streets-v11",
+    center: [120.9842, 14.5995],
     zoom: 10
 });
 
@@ -155,9 +164,10 @@ function loadSelectedMap(type) {
         alert("No address available.");
         return;
     }
-    var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + 
-    encodeURIComponent(address) + 
-    ".json?access_token=" + mapboxgl.accessToken;
+
+    var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+              encodeURIComponent(address) +
+              ".json?access_token=" + mapboxgl.accessToken;
 
     fetch(url)
     .then(function(r){ return r.json(); })
@@ -205,8 +215,7 @@ document.getElementById("loginOverlay").onclick = function(event) {
 window.onload = function() {
     initializeHome();
 };
-
- </script>
+</script>
 
 </body>
 </html>

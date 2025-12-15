@@ -88,7 +88,7 @@ function getBookingImage($name, $hotels, $restaurants, $activities) {
 
 <!-- Include homepage CSS to fix topbar layout -->
 <link rel="stylesheet" href="css/homepage.css?v=<?php echo time(); ?>">
-<link rel="stylesheet" href="css/login_require.css">
+<link rel="stylesheet" href="css/profile.css">
 
 </head>
 <body>

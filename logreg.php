@@ -96,5 +96,6 @@ function handleGoogle(response) {
     f.submit();
 }
 </script>
+
 </body>
 </html>
