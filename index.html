@@ -7,6 +7,9 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
+<link rel="stylesheet" href="css/homepage.css">
+<link rel="stylesheet" href="css/login_require.css">
+
 </head>
 <body>
 
@@ -101,6 +104,11 @@
     </div>
 </div>
 
+<!-- LOAD DATA FROM PHP -->
+<script src="get_data.php"></script>
+<script src="js/location_fetch.js"></script>
+<script src="js/homepage.js"></script>
+
 <!-- MAPBOX JS LOGIC -->
  <script>
 mapboxgl.accessToken = "pk.eyJ1Ijoia3lsZWxpeCIsImEiOiJjbWl3ejMzdmIwMWU5M2VxczJyOHBxbXZ2In0.2GzAyBPJlO_X24QBTy-MYQ";
@@ -181,6 +189,22 @@ function moveMap(lon, lat) {
         zoom: 14
     });
 }
+
+/* SHOW LOGIN POPUP */
+function showLoginPopup() {
+    document.getElementById("loginOverlay").style.display = "flex";
+}
+
+/* HIDE POPUP IF CLICKED OUTSIDE */
+document.getElementById("loginOverlay").onclick = function(event) {
+    if (event.target == document.getElementById("loginOverlay")) {
+        document.getElementById("loginOverlay").style.display = "none";
+    }
+};
+
+window.onload = function() {
+    initializeHome();
+};
 
  </script>
 
