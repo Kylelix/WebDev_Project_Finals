@@ -9,6 +9,10 @@ session_start();
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<link rel="stylesheet" href="css/logreg.css?v=<?php echo time(); ?>">
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 </head>
 
 <body>
