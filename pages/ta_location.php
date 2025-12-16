@@ -1,14 +1,16 @@
 <?php
 
-$name = "";
-if (@$_GET["name"] != "") {
-    $name = $_GET["name"];
+$name = @$_GET["name"];
+$type = @$_GET["type"];
+
+if ($name == "") {
+    echo json_encode(null);
+    exit();
 }
 
-$type = "";
-if (@$_GET["type"] != "") {
-    $type = $_GET["type"];
-}
+require_once "../includes/db.php";
+
+// simulated search
 
 $apiKey = "CF117863AC60432ABABC13AFD193329E";
 $base = "https://api.content.tripadvisor.com/api/v1/location";
@@ -45,10 +47,10 @@ function trySearch($query, $apiKey, $base) {
     return "";
 }
 
-/* 1 — TRY FULL NAME */
+// try full name
 $locationId = trySearch($name, $apiKey, $base);
 
-/* 2 — IF FAIL, REMOVE LAST WORD */
+// remove last word
 if ($locationId == "") {
 
     $parts = explode(" ", $name);
@@ -57,7 +59,7 @@ if ($locationId == "") {
     if ($count > 1) {
 
         $newQuery = "";
-        for ($i = 0; $i < $count - 1; $i = $i + 1) {
+        for ($i = 0; $i < $count - 1; $i++) {
             if ($i == 0) {
                 $newQuery = $parts[$i];
             } else {
@@ -69,7 +71,7 @@ if ($locationId == "") {
     }
 }
 
-/* 3 — IF FAIL, FIRST 3 WORDS */
+// try first 3 words
 if ($locationId == "") {
 
     $parts = explode(" ", $name);
@@ -82,7 +84,7 @@ if ($locationId == "") {
     }
 }
 
-/* 4 — IF FAIL, FIRST 2 WORDS */
+// try first 2 words
 if ($locationId == "") {
 
     $parts = explode(" ", $name);
@@ -97,7 +99,7 @@ if ($locationId == "") {
 
 $address = "";
 
-/* IF FOUND ANY VALID LOCATION ID, FETCH DETAILS */
+// fetch details
 if ($locationId != "") {
 
     $detailUrl = $base . "/" . $locationId . "/details?key=" . $apiKey;
@@ -123,7 +125,7 @@ if ($locationId != "") {
                 $address = $info["address_obj"]["address_string"];
             } else {
 
-                /* fallback city only */
+                // city fallback
                 if (@$info["address_obj"]["city"] != "") {
                     $address = $info["address_obj"]["city"];
                 }
@@ -132,6 +134,6 @@ if ($locationId != "") {
     }
 }
 
-/* FINAL JSON OUTPUT */
+// return json
 echo json_encode(array("address" => $address));
 ?>

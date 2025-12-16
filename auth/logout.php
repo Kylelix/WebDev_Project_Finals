@@ -9,7 +9,7 @@ session_destroy();
 echo "
 <script>
 alert('You have been logged out.');
-window.location = 'homepage.php';
+window.location = '../pages/index.html';
 </script>
 ";
 ?>

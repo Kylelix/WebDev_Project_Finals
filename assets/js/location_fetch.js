@@ -9,7 +9,7 @@ function loadLocation(placeName, placeType, elementId) {
         return;
     }
 
-    /* If cached, return the cached address */
+    // return from cache
     if (locationCache[placeName]) {
         document.getElementById(elementId).innerHTML = locationCache[placeName]["address"];
         return;
@@ -22,17 +22,17 @@ function loadLocation(placeName, placeType, elementId) {
     var request = new XMLHttpRequest();
     request.open("GET", url, true);
 
-    request.onload = function() {
+    request.onload = function () {
 
         if (request.status == 200) {
 
             var response = request.responseText;
             var data = null;
 
-            /* BASIC PARSE ONLY (no try/catch allowed except this one which was already present) */
+            // parse json
             try {
                 data = JSON.parse(response);
-            } catch(e) {
+            } catch (e) {
                 document.getElementById(elementId).innerHTML = "Location unavailable";
                 return;
             }
@@ -45,7 +45,7 @@ function loadLocation(placeName, placeType, elementId) {
 
                 if (address != "") {
 
-                    /* SAVE INTO CACHE */
+                    // save to cache
                     locationCache[placeName] = {
                         "address": address,
                         "lat": lat,
@@ -54,11 +54,10 @@ function loadLocation(placeName, placeType, elementId) {
 
                     document.getElementById(elementId).innerHTML = address;
 
-                    /* SAVE INTO THE ITEM OBJECT ITSELF */
-
+                    // update item details
                     var i;
 
-                    /* HOTELS */
+                    // hotels
                     for (i = 0; i < allHotels.length; i++) {
                         if (allHotels[i].name == placeName) {
                             allHotels[i]["address"] = address;
@@ -67,7 +66,7 @@ function loadLocation(placeName, placeType, elementId) {
                         }
                     }
 
-                    /* RESTAURANTS */
+                    // restaurants
                     for (i = 0; i < allRestaurants.length; i++) {
                         if (allRestaurants[i].name == placeName) {
                             allRestaurants[i]["address"] = address;
@@ -76,7 +75,7 @@ function loadLocation(placeName, placeType, elementId) {
                         }
                     }
 
-                    /* ACTIVITIES */
+                    // activities
                     for (i = 0; i < allActivities.length; i++) {
                         if (allActivities[i].name == placeName) {
                             allActivities[i]["address"] = address;

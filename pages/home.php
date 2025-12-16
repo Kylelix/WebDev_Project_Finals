@@ -1,16 +1,14 @@
 <?php
 session_start();
-require_once "interests.php";
 
-/* SUPPRESS WARNINGS WHILE CREATING SESSION KEYS */
+// load data
+require_once "../includes/interests.php";
+
+// suppress warnings for session vars
 $_SESSION["username"] = @$_SESSION["username"];
 $_SESSION["userID"] = @$_SESSION["userID"];
 
-/* CHECK IF USER IS NOT LOGGED IN - REDIRECT TO index.html */
-if ($_SESSION["username"] == "" || $_SESSION["userID"] == "") {
-    header("Location: index.html");
-    exit();
-}
+// page is public so no redirect
 ?>
 
 <!DOCTYPE html>
@@ -18,37 +16,28 @@ if ($_SESSION["username"] == "" || $_SESSION["userID"] == "") {
 <head>
 <title>Homepage</title>
 
-<!-- MAPBOX -->
+<!-- viewport for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- mapbox api -->
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 
-<link rel="stylesheet" href="css/homepage.css?v=<?php echo time(); ?>">
-<script src="js/location_fetch.js?v=<?php echo time(); ?>"></script>
-<script src="js/homepage.js?v=<?php echo time(); ?>"></script>
+<!-- font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<!-- stylesheet and js -->
+<link rel="stylesheet" href="../assets/css/homepage.css?v=<?php echo time(); ?>">
+<script src="../assets/js/location_fetch.js?v=<?php echo time(); ?>"></script>
+<script src="../assets/js/homepage.js?v=<?php echo time(); ?>"></script>
 
 </head>
 <body>
 
-<!-- TOP BAR -->
-<div class="topbar">
-    <img src="images/hotel_logo.png" class="logo">
+<!-- navbar -->
+<?php require_once "../components/navbar.php"; ?>
 
-        <!-- ADDED: Navigation menu -->
-    <div class="nav-menu">
-        <a href="#welcome" class="nav-link">Home</a>
-        <a href="#destinations" class="nav-link">Destinations</a>
-        <a href="about.php" class="nav-link">About</a>
-        <a href="contact.php" class="nav-link">Contact</a>
-    </div>
-
-    <div class='user-area'>
-        <span class='welcome-text'>Welcome, <?php echo $_SESSION["username"]; ?></span>
-        <a href='profile.php' class='menu-btn'>Profile</a>
-        <a href='logout.php' class='menu-btn' style='background:#ff6b6b;'>Logout</a>
-    </div>
-</div>
-
-<!-- ADDED: Welcome screen with scrolling images -->
+<!-- welcome section -->
 <div id="welcome" class="welcome-section">
     <div class="welcome-overlay">
         <h1 class="welcome-title">Discover Your Next Adventure</h1>
@@ -56,56 +45,39 @@ if ($_SESSION["username"] == "" || $_SESSION["userID"] == "") {
     </div>
     <div class="welcome-slider">
         <div class="slider-track">
-            <img src="images/img1.jpg" class="slider-img">
-            <img src="images/img2.jpg" class="slider-img">
-            <img src="images/img3.jpg" class="slider-img">
-            <img src="images/img4.jpg" class="slider-img">
-            <img src="images/img5.jpg" class="slider-img">
-            <img src="images/img6.jpg" class="slider-img">
-            <img src="images/img7.jpg" class="slider-img">
-            <img src="images/img8.jpg" class="slider-img">
-            <img src="images/img9.jpg" class="slider-img">
-            <img src="images/img10.jpg" class="slider-img">
-            <!-- Duplicate for loop -->
-            <img src="images/img1.jpg" class="slider-img">
-            <img src="images/img2.jpg" class="slider-img">
-            <img src="images/img3.jpg" class="slider-img">
-            <img src="images/img4.jpg" class="slider-img">
-            <img src="images/img5.jpg" class="slider-img">
-            <img src="images/img6.jpg" class="slider-img">
-            <img src="images/img7.jpg" class="slider-img">
-            <img src="images/img8.jpg" class="slider-img">
-            <img src="images/img9.jpg" class="slider-img">
-            <img src="images/img10.jpg" class="slider-img">
+            <!-- manual images -->
+            <img src="../assets/images/img1.jpg" class="slider-img">
+            <img src="../assets/images/img2.jpg" class="slider-img">
+            <img src="../assets/images/img3.jpg" class="slider-img">
+            <img src="../assets/images/img4.jpg" class="slider-img">
+            <img src="../assets/images/img5.jpg" class="slider-img">
+            <img src="../assets/images/img1.jpg" class="slider-img">
+            <img src="../assets/images/img2.jpg" class="slider-img">
+            <img src="../assets/images/img3.jpg" class="slider-img">
+            <img src="../assets/images/img4.jpg" class="slider-img">
+            <img src="../assets/images/img5.jpg" class="slider-img">
         </div>
     </div>
 </div>
 
-<!-- MAPBOX DISPLAY -->
-<div id="mapbox-container">
-    <div id="map"></div>
-</div>
-
-
-<!-- SEARCH BAR -->
+<!-- search -->
 <div id="destinations" class="search-bar">
     <input type="text" id="searchBox" class="search-input" placeholder="Search a place...">
     <button class="search-btn" onclick="applySearch()">Search</button>
 </div>
 
-
-<!-- PASS PHP ARRAYS TO JS -->
+<!-- pass php arrays to js -->
 <script>
 var allHotels = <?php echo json_encode($hotels); ?>;
 var allRestaurants = <?php echo json_encode($restaurants); ?>;
 var allActivities = <?php echo json_encode($activities); ?>;
+var isLoggedIn = "<?php echo $_SESSION["userID"]; ?>";
 </script>
 
-
-<!-- 3 COLUMNS -->
+<!-- columns -->
 <div class="columns">
 
-    <!-- HOTELS -->
+    <!-- hotels column -->
     <div class="col">
         <div class="col-head">
             <div class="col-title">HOTELS</div>
@@ -116,7 +88,7 @@ var allActivities = <?php echo json_encode($activities); ?>;
         </div>
 
         <div class="col-body">
-            <img id="hotel-img" class="item-img">
+            <img id="hotel-img" class="item-img" src="../assets/images/placeholder.jpg">
             <div id="hotel-name" class="item-name"></div>
             <div id="hotel-loc" class="location-text"></div>
 
@@ -127,7 +99,7 @@ var allActivities = <?php echo json_encode($activities); ?>;
         </div>
     </div>
 
-    <!-- RESTAURANTS -->
+    <!-- restaurants column -->
     <div class="col">
         <div class="col-head">
             <div class="col-title">RESTAURANTS</div>
@@ -138,7 +110,7 @@ var allActivities = <?php echo json_encode($activities); ?>;
         </div>
 
         <div class="col-body">
-            <img id="restaurant-img" class="item-img">
+            <img id="restaurant-img" class="item-img" src="../assets/images/placeholder.jpg">
             <div id="restaurant-name" class="item-name"></div>
             <div id="restaurant-loc" class="location-text"></div>
 
@@ -149,7 +121,7 @@ var allActivities = <?php echo json_encode($activities); ?>;
         </div>
     </div>
 
-    <!-- ACTIVITIES -->
+    <!-- activities column -->
     <div class="col">
         <div class="col-head">
             <div class="col-title">ACTIVITIES</div>
@@ -160,7 +132,7 @@ var allActivities = <?php echo json_encode($activities); ?>;
         </div>
 
         <div class="col-body">
-            <img id="activity-img" class="item-img">
+            <img id="activity-img" class="item-img" src="../assets/images/placeholder.jpg">
             <div id="activity-name" class="item-name"></div>
             <div id="activity-loc" class="location-text"></div>
 
@@ -173,11 +145,56 @@ var allActivities = <?php echo json_encode($activities); ?>;
 
 </div>
 
+<!-- map -->
+<div id="mapbox-container">
+    <div id="map"></div>
+</div>
 
-<!-- MAPBOX JS LOGIC -->
+<!-- advanced search -->
+<div id="advanced-search" class="adv-search-section">
+    <div class="adv-header">
+        <h2>Find Your Perfect Experience</h2>
+        <p>Filter by type, price, or keyword.</p>
+    </div>
+
+    <div class="filter-bar">
+        <!-- keyword input -->
+        <input type="text" id="advKeyword" placeholder="e.g. Resort, Café..." class="adv-input">
+
+        <!-- type dropdown -->
+        <select id="advType" class="adv-select">
+            <option value="all">All Types</option>
+            <option value="hotel">Hotels</option>
+            <option value="restaurant">Restaurants</option>
+            <option value="activity">Activities</option>
+        </select>
+
+        <!-- price dropdown -->
+        <select id="advPrice" class="adv-select">
+            <option value="any">Any Price</option>
+            <option value="budget">Budget (Under ₱2000)</option>
+            <option value="standard">Standard (₱2000 - ₱5000)</option>
+            <option value="luxury">Luxury (Above ₱5000)</option>
+        </select>
+
+        <button onclick="runAdvancedSearch()" class="adv-btn">Filter</button>
+    </div>
+
+    <!-- results will go here -->
+    <div id="adv-results" class="adv-grid">
+        <!-- js will fill this -->
+    </div>
+    
+    <div style="text-align:center; margin-top:30px;">
+        <p id="result-count" style="color:#777;"></p>
+    </div>
+</div>
+
+<!-- mapbox setup script -->
 <script>
 mapboxgl.accessToken = "pk.eyJ1Ijoia3lsZWxpeCIsImEiOiJjbWl3ejMzdmIwMWU5M2VxczJyOHBxbXZ2In0.2GzAyBPJlO_X24QBTy-MYQ";
 
+// setup map
 var map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11",
@@ -187,7 +204,11 @@ var map = new mapboxgl.Map({
 
 var activeMarker = null;
 
+// load map for a specific item
 function loadSelectedMap(type) {
+
+    // scroll down to map
+    document.getElementById("mapbox-container").scrollIntoView({behavior: "smooth"});
 
     var list = null;
     var index = 0;
@@ -196,59 +217,50 @@ function loadSelectedMap(type) {
         list = hotels;
         index = hIndex;
     }
-
     if (type == "restaurant") {
         list = restaurants;
         index = rIndex;
     }
-
     if (type == "activity") {
         list = activities;
         index = aIndex;
     }
 
-    var place = list[index];
-
-    if (place == null) {
-        alert("No place loaded.");
+    if (list.length == 0) {
+        alert("No items to load.");
         return;
     }
 
+    var place = list[index];
     var address = place["address"];
 
-    if (address == null || address == "") {
+    if (address == "") {
         alert("No address available.");
         return;
     }
 
-    /* GEOCODE USING ADDRESS ONLY */
     var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
-    encodeURIComponent(address) +
-    ".json?access_token=" + mapboxgl.accessToken;
+              encodeURIComponent(address) +
+              ".json?access_token=" + mapboxgl.accessToken;
 
     fetch(url)
     .then(function(r){ return r.json(); })
     .then(function(data){
-
         if (data.features.length > 0) {
-
             var lon = data.features[0].center[0];
             var lat = data.features[0].center[1];
-
             moveMap(lon, lat);
-
         } else {
-            alert("MapBox could not find this address.");
+            alert("Location not found on map.");
         }
     });
 }
 
+// move the pin
 function moveMap(lon, lat) {
-
     if (activeMarker != null) {
         activeMarker.remove();
     }
-
     activeMarker = new mapboxgl.Marker().setLngLat([lon, lat]).addTo(map);
 
     map.flyTo({
@@ -259,8 +271,12 @@ function moveMap(lon, lat) {
 
 window.onload = function() {
     initializeHome();
+    runAdvancedSearch(); // show defaults
 };
 </script>
+
+<!-- FOOTER -->
+<?php require_once "../components/footer.php"; ?>
 
 </body>
 </html>

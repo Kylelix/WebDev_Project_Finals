@@ -7,9 +7,15 @@ session_start();
 <head>
 <title>Login / Register</title>
 
+<!-- viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- bootstrap -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="css/logreg.css?v=<?php echo time(); ?>">
+<!-- css -->
+<link rel="stylesheet" href="../assets/css/homepage.css?v=<?php echo time(); ?>">
+<link rel="stylesheet" href="../assets/css/logreg.css?v=<?php echo time(); ?>">
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -17,11 +23,13 @@ session_start();
 
 <body>
 
+<?php require_once "../components/navbar.php"; ?>
+
 <div class="outer">
 
     <div class="logreg-card">
 
-        <!-- LOGIN -->
+        <!-- login -->
         <div class="left-panel">
             <h2>Login</h2>
 
@@ -38,7 +46,7 @@ session_start();
 
         <div class="divider"></div>
 
-        <!-- REGISTER -->
+        <!-- register -->
         <div class="right-panel">
             <h2>Register</h2>
 
@@ -58,7 +66,7 @@ session_start();
 
     </div>
 
-    <!-- NEW STYLED GOOGLE WRAPPER -->
+    <!-- google code -->
     <div class="google-wrapper">
         <div id="g_id_onload"
              data-client_id="397070442652-a36b7hmfeah7sag869fsrgqdcpkvcrs6.apps.googleusercontent.com"

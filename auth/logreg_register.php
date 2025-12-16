@@ -1,26 +1,22 @@
 <?php
 session_start();
 
-$serverName = "KYLELIX\SQLEXPRESS";
-$connectionOptions = array("Database" => "db");
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+require_once "../includes/db.php";
 
-$email = "";
-$username = "";
-$password = "";
+$email = @$_POST["email"];
+$username = @$_POST["username"];
+$password = @$_POST["password"];
 
-if ($_POST["email"] != "") { $email = $_POST["email"]; }
-if ($_POST["username"] != "") { $username = $_POST["username"]; }
-if ($_POST["password"] != "") { $password = $_POST["password"]; }
-
-/* CHECK DUPLICATE EMAIL */
+// check email
 $sql = "SELECT id FROM USERS WHERE email = '$email'";
 $res = sqlsrv_query($conn, $sql);
 
 $exists = 0;
 
-while ($row = sqlsrv_fetch_array($res)) {
-    $exists = 1;
+if ($res) {
+    while ($row = sqlsrv_fetch_array($res)) {
+        $exists = 1;
+    }
 }
 
 if ($exists == 1) {
@@ -33,6 +29,7 @@ if ($exists == 1) {
     exit();
 }
 
+// insert user
 $sql2 = "INSERT INTO USERS (email, username, password)
          VALUES ('$email', '$username', '$password')";
 
