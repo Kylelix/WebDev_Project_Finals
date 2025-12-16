@@ -31,7 +31,7 @@ if ($_SESSION["username"] == "" || $_SESSION["userID"] == "") {
 
 <!-- TOP BAR -->
 <div class="topbar">
-    <img src="images/logo.png" class="logo">
+    <img src="images/hotel_logo.png" class="logo">
 
         <!-- ADDED: Navigation menu -->
     <div class="nav-menu">
@@ -66,7 +66,7 @@ if ($_SESSION["username"] == "" || $_SESSION["userID"] == "") {
             <img src="images/img8.jpg" class="slider-img">
             <img src="images/img9.jpg" class="slider-img">
             <img src="images/img10.jpg" class="slider-img">
-            <!-- Duplicate for seamless loop -->
+            <!-- Duplicate for loop -->
             <img src="images/img1.jpg" class="slider-img">
             <img src="images/img2.jpg" class="slider-img">
             <img src="images/img3.jpg" class="slider-img">
